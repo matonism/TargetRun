@@ -18,4 +18,3 @@ C:\Users\guita\Documents\Unity\TargetRun\TargetRun\Temp\bin\Debug\UnityEngine.UI
 C:\Users\guita\Documents\Unity\TargetRun\TargetRun\Temp\bin\Debug\UnityEngine.Networking.xml
 C:\Users\guita\Documents\Unity\TargetRun\TargetRun\obj\Debug\Assembly-CSharp-firstpass.dll
 C:\Users\guita\Documents\Unity\TargetRun\TargetRun\obj\Debug\Assembly-CSharp-firstpass.pdb
-C:\Users\guita\Documents\Unity\TargetRun\TargetRun\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache

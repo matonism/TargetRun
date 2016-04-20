@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MultiConnectionBuilder : IBuilder<Dictionary<Vector3, GameObject>>
+public class MultiConnectionBuilder : IBuilder<Dictionary<Vector3, GameObject>, GameObject>
 {
     public GameObject Host
     {
@@ -34,10 +34,18 @@ public class MultiConnectionBuilder : IBuilder<Dictionary<Vector3, GameObject>>
         builders.Add(connection);
     }
 
-    public Dictionary<Vector3, GameObject> Build()
+    public Dictionary<Vector3, GameObject> Build(GameObject Host)
     {
         var objs = new Dictionary<Vector3, GameObject>(connections.Count);
-        foreach (var pair in connections) { objs.Add(pair.Key, pair.Value[UnityEngine.Random.Range(0, pair.Value.Count)].Build()); }
+        foreach (var pair in connections)
+        {
+            var vec = pair.Key;
+            var list = pair.Value;
+            int count = list.Count;
+            int index = UnityEngine.Random.Range(0, count);
+            while (list[index].Chance < UnityEngine.Random.value) { index = UnityEngine.Random.Range(0, count); }
+            objs.Add(vec, list[index].Build(Host));
+        }
         return objs;
     }
 

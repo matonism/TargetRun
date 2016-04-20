@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 
@@ -8,26 +9,56 @@ public class SpawnParameters : MonoBehaviour
 {
     private static Dictionary<string, MultiConnectionBuilder> Connections = new Dictionary<string, MultiConnectionBuilder>();
 
-    public static void AddConnectionBuilder(MobilePlatform platform)
+    public static void AddConnectionBuilder(SpawnParameters parameters)
     {
-        if(platform.gameObject.activeInHierarchy) { throw new ArgumentException("Active connection builder prefabs are not allowed."); }
-        SpawnParameters parameters = platform.Parameters;
-        var builder = new MultiConnectionBuilder(platform.gameObject);
-        foreach(var connection in parameters.Platforms)
+        if (!Connections.ContainsKey(parameters.Name))
         {
-            foreach(var p in connection.Platforms)
+            Debug.Log("Trying to Add Connection Builder: " + parameters.Name);
+            //if(parameters.gameObject.activeSelf) { throw new ArgumentException("Active connection builder prefabs are not allowed."); }
+            var platforms = parameters.Platforms;
+            parameters.Platforms = null;
+            var builder = new MultiConnectionBuilder(parameters.gameObject);
+            foreach (var connection in platforms)
             {
-                if (p.Platform.gameObject.activeInHierarchy) { throw new ArgumentException("Active connection builder prefabs are not allowed."); }
-                builder.AddClient(connection.HostExitConnection, new ConnectionBuilder(platform.gameObject, connection.HostExitConnection, p.Platform.gameObject, p.ClientEntranceConnection));
+                foreach (var p in connection.Platforms)
+                {
+                    //if (p.Platform.gameObject.activeInHierarchy) { throw new ArgumentException("Active connection builder prefabs are not allowed."); }
+                    builder.AddClient(connection.HostExitConnection, new ConnectionBuilder(connection.HostExitConnection, p.Platform.gameObject, p.ClientEntranceConnection, connection.ExitRotation, p.Chance));
+                }
             }
+            Connections.Add(parameters.Name, builder);
+            Debug.Log("Added ConnectionBuilder " + parameters.Name);
         }
-        Connections.Add(parameters.Name, builder);
-        parameters.Platforms = null;
+    }
+
+    public static void Print()
+    {
+        StringBuilder builder = new StringBuilder("Keys Present: ");
+        foreach (var c in Connections)
+        {
+            builder.Append(c.Key);
+            builder.Append(", ");
+        }
+        Debug.Log(builder.ToString());
+    }
+
+    public void Start()
+    {
+        if (Platforms != null)
+        {
+            AddConnectionBuilder(this);
+        }
     }
 
     public static IEnumerable<GameObject> CreateConnection(MobilePlatform spawner)
     {
-        return Connections[spawner.Parameters.Name].Build().Values;
+        MultiConnectionBuilder builder;
+        if (!Connections.TryGetValue(spawner.Parameters.Name, out builder))
+        {
+            Print();
+            throw new KeyNotFoundException("Could not find key " + spawner.Parameters.Name);
+        }
+        return builder.Build(spawner.gameObject).Values;
     }
 
     public string Name;
@@ -52,7 +83,7 @@ public class SpawnParameters : MonoBehaviour
         {
             foreach (var connection in Platforms)
             {
-                
+
                 Vector3 endPos = this.transform.position + connection.HostExitConnection;
                 Gizmos.DrawRay(endPos, Vector3.forward * size);
                 Gizmos.DrawRay(endPos, Vector3.up * size);

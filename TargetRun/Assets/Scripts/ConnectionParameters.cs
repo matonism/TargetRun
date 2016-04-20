@@ -13,11 +13,13 @@ public class ConnectionParameters
         {
             get
             {
+                if (Platform.Parameters == null) { Platform.Initialize(); }
                 return Platform.Parameters.HostEntranceConnection;
             }
         }
     }
 
     public Vector3 HostExitConnection;
+    public float ExitRotation;
     public PlatformParamaters[] Platforms;
 }

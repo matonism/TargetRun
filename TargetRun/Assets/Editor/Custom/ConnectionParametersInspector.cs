@@ -7,6 +7,7 @@ public class ConnectionParametersInspector : Editor
     {
         serializedObject.Update();
         EditorGUILayout.PropertyField(serializedObject.FindProperty("HostExitConnection"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("ExitRotation"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("Platforms"));
         serializedObject.ApplyModifiedProperties();
     }
