@@ -63,8 +63,6 @@ public class ConnectionBuilder : IBuilder<GameObject, GameObject>
         var obj = (GameObject)GameObject.Instantiate(Client, hostWorldPoint - hostSpawn.Rotation * turnRotation * ClientConnectionPoint, hostSpawn.Rotation * turnRotation * clientInitialRotation);
         var objSpawn = obj.GetComponent<SpawnParameters>();
         obj.transform.parent = Host.transform.parent;
-        //Quaternion.AngleAxis(hostSpawn.RotationY + ClientConnectionRotation, Vector3.up)
-        //obj.transform.RotateAround(obj.transform.position, Vector3.up, hostSpawn.RotationY);
         objSpawn.RotationY = hostSpawn.RotationY + ClientConnectionRotation;
         obj.SetActive(true);
         return obj;
