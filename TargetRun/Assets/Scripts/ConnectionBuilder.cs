@@ -58,12 +58,13 @@ public class ConnectionBuilder : IBuilder<GameObject, GameObject>
     public GameObject Build(GameObject Host)
     {
         var hostSpawn = Host.GetComponent<SpawnParameters>();      
-        Vector3 hostPosition = Host.transform.position;
-        var hostWorldPoint = hostPosition + hostSpawn.Rotation * HostConnectionPoint;
-        var obj = (GameObject)GameObject.Instantiate(Client, hostWorldPoint - ClientConnectionPoint, clientInitialRotation);
+        var hostWorldPoint = Host.transform.position + hostSpawn.Rotation * HostConnectionPoint;
+        var turnRotation = Quaternion.AngleAxis(ClientConnectionRotation, Vector3.up);
+        var obj = (GameObject)GameObject.Instantiate(Client, hostWorldPoint - hostSpawn.Rotation * turnRotation * ClientConnectionPoint, hostSpawn.Rotation * turnRotation * clientInitialRotation);
         var objSpawn = obj.GetComponent<SpawnParameters>();
         obj.transform.parent = Host.transform.parent;
-        obj.transform.RotateAround(hostWorldPoint, Vector3.up, hostSpawn.RotationY + ClientConnectionRotation);
+        //Quaternion.AngleAxis(hostSpawn.RotationY + ClientConnectionRotation, Vector3.up)
+        //obj.transform.RotateAround(obj.transform.position, Vector3.up, hostSpawn.RotationY);
         objSpawn.RotationY = hostSpawn.RotationY + ClientConnectionRotation;
         obj.SetActive(true);
         return obj;

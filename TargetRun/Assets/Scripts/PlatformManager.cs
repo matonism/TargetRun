@@ -24,14 +24,14 @@ public class PlatformManager : MonoBehaviour {
         get { return new Vector3(0.0f, 0.0f, manager.speed); }
     }
 
-    public static float WorldRotationZ
+    public static float WorldRotationY
     {
         get { return manager.worldRotation; }
     }
 
     public static Quaternion WorldRotation
     {
-        get { return Quaternion.AngleAxis(PlatformManager.WorldRotationZ, Vector3.up); }
+        get { return Quaternion.AngleAxis(PlatformManager.WorldRotationY, Vector3.up); }
     }
 
     public static GameObject Player
@@ -66,6 +66,7 @@ public class PlatformManager : MonoBehaviour {
 
 
         var startType = platformTypes[UnityEngine.Random.Range(0, platformTypes.Length)].gameObject;
+        while(startType.name.ToLower().Contains("turn")) { startType = platformTypes[UnityEngine.Random.Range(0, platformTypes.Length)].gameObject; }
         GameObject blueprint = null;
         Dictionary<string, SpawnParameters> copies = new Dictionary<string, SpawnParameters>();
         foreach (var p in platformTypes)

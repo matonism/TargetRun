@@ -62,7 +62,7 @@ public class SpawnParameters : MonoBehaviour
     {
         get
         {
-            return Quaternion.AngleAxis(RotationY, Vector3.up);
+            return Quaternion.AngleAxis(RotationY + PlatformManager.WorldRotationY, Vector3.up);
         }
     }
 

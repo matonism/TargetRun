@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2027a78494835e14892972e03e4bacb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomizeSeed: 0
+  randomizeSeed: 1
   seed: 212
   player: {fileID: 289149629}
   creationDistance: 50
@@ -511,11 +511,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DistanceLimiting:
   - name: BothTurn
-    distance: 200
+    distance: 400
   - name: LeftTurn
-    distance: 200
+    distance: 400
   - name: RightTurn
-    distance: 200
+    distance: 400
   - name: ExtraLongGround
     distance: 0
   - name: MediumBridge
