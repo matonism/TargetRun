@@ -9,6 +9,11 @@ public class ConnectionBuilder : IBuilder<GameObject, GameObject>
         get; private set;
     }
 
+    public string ClientName
+    {
+        get; private set;
+    }
+
     private Vector3 clientConnectionPoint;
     private Vector3 hostConnectionPoint;
     public Quaternion clientInitialRotation;
@@ -43,6 +48,7 @@ public class ConnectionBuilder : IBuilder<GameObject, GameObject>
     {
         hostConnectionPoint = p_host_connection_point;
         Client = p_client;
+        ClientName = Client.GetComponent<SpawnParameters>().Name;
         clientInitialRotation = p_client.transform.rotation;
         clientConnectionPoint = p_client_connection_point;
         ClientConnectionRotation = p_client_connection_rotation;

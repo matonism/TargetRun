@@ -46,6 +46,7 @@ GameObject:
   - 4: {fileID: 474946}
   - 114: {fileID: 11497222}
   - 114: {fileID: 11422750}
+  - 65: {fileID: 6525834}
   m_Layer: 0
   m_Name: ExtraLongGround
   m_TagString: Untagged
@@ -648,7 +649,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.4596763, y: 17.361998, z: -11.425322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 467594}
@@ -1853,6 +1854,18 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 7cac1ba650135f14893a5028aaa086b9, type: 3}
+--- !u!65 &6525834
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131296}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7, y: 10, z: 42}
+  m_Center: {x: 0, y: 0, z: 17.5}
 --- !u!114 &11422750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1967,6 +1980,10 @@ Prefab:
       value: 
       objectReference: {fileID: 11473610, guid: e7a1ec8fab3c19247af58c9e776d9868,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 131296}

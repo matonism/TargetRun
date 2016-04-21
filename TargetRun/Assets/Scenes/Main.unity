@@ -18,8 +18,8 @@ RenderSettings:
   m_FogColor: {r: 0.3254902, g: 0.5529412, b: 0.74509805, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.4
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 100
+  m_LinearFogStart: 25
+  m_LinearFogEnd: 50
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -451,6 +451,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1535521949}
   - 114: {fileID: 1535521950}
+  - 114: {fileID: 1535521951}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -484,9 +485,8 @@ MonoBehaviour:
   randomizeSeed: 0
   seed: 212
   player: {fileID: 289149629}
-  xDestructionDistance: 100
-  zDestructionDistance: -100
-  creationDistance: 100
+  creationDistance: 50
+  destructionDistance: -50
   speed: 10
   acceleration: 0.1
   platformTypes:
@@ -498,6 +498,34 @@ MonoBehaviour:
   - {fileID: 11435240, guid: e7a1ec8fab3c19247af58c9e776d9868, type: 2}
   - {fileID: 11446628, guid: 557412bd55bad374b83f928f17edc817, type: 2}
   - {fileID: 11449234, guid: ff47a7c9ecfa7f848bcb90eabcffd60a, type: 2}
+--- !u!114 &1535521951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1535521948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2041e8aedc105d8478824489e6739318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DistanceLimiting:
+  - name: BothTurn
+    distance: 200
+  - name: LeftTurn
+    distance: 200
+  - name: RightTurn
+    distance: 200
+  - name: ExtraLongGround
+    distance: 0
+  - name: MediumBridge
+    distance: 0
+  - name: MediumGround
+    distance: 0
+  - name: ShortGround
+    distance: 0
+  - name: ThinMediumBridge
+    distance: 0
 --- !u!1 &1764856499
 GameObject:
   m_ObjectHideFlags: 0

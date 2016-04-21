@@ -1,42 +1,51 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(SpawnParameters))]
-public class MobilePlatform : MonoBehaviour {
+public class MobilePlatform : MonoBehaviour
+{
+    private static bool initialized = false;
+    private static int mask;
 
     private IEnumerable<GameObject> Next;
-    private bool destroyed = false;
 
     public SpawnParameters Parameters
     {
         get; private set;
     }
 
-    public void Initialize()
+    public BoxCollider Collider
     {
-        Parameters = GetComponent<SpawnParameters>();
+        get; private set;
     }
 
     public void Awake()
     {
-        if(Parameters == null) { Initialize(); }
+        if (Parameters == null)
+        {
+            Parameters = GetComponent<SpawnParameters>();
+            Collider = GetComponent<BoxCollider>();
+        }
+        if (!initialized)
+        {
+            initialized = true;
+            mask = LayerMask.GetMask("Player");
+        }
     }
 
-	void Update ()
+    void Update()
     {
-        if (!destroyed)
-        {
-            this.transform.position = this.transform.position - (PlatformManager.SpeedVector * Time.deltaTime);
+        this.transform.position = this.transform.position - (PlatformManager.SpeedVector * Time.deltaTime);
 
-            if (PlatformManager.Player.transform.position.z + transform.position.z < PlatformManager.ZDestructionDistance /* || Mathf.Abs(PlatformManager.Player.transform.position.x - transform.position.x) > Mathf.Abs(PlatformManager.XDestructionDistance)*/)
-            {
-                GameObject.Destroy(this.gameObject);
-                destroyed = true;
-            }
-            else if (Next == null && transform.position.z + PlatformManager.Player.transform.position.z < PlatformManager.CreationDistance)
-            {
-                Next = SpawnParameters.CreateConnection(this);
-            }
+        if (Next == null && Vector3.Distance(transform.position, PlatformManager.Player.transform.position) < PlatformManager.CreationDistance)
+        {
+            Next = SpawnParameters.CreateConnection(this);
+        }
+
+        if(PlatformManager.Player.transform.position.z + transform.position.z < PlatformManager.DestructionDistance)
+        {
+            GameObject.Destroy(this.gameObject);
         }
     }
 }

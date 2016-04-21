@@ -40,12 +40,7 @@ public class MultiConnectionBuilder : IBuilder<Dictionary<Vector3, GameObject>, 
         var objs = new Dictionary<Vector3, GameObject>(connections.Count);
         foreach (var pair in connections)
         {
-            var vec = pair.Key;
-            var list = pair.Value;
-            int count = list.Count;
-            int index = UnityEngine.Random.Range(0, count);
-            while (list[index].Chance < UnityEngine.Random.value) { index = UnityEngine.Random.Range(0, count); }
-            objs.Add(vec, list[index].Build(Host));
+            objs.Add(pair.Key, ChanceManager.Build(Host, pair.Value));
         }
         return objs;
     }

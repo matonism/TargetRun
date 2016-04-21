@@ -13,7 +13,7 @@ public class ConnectionParameters
         {
             get
             {
-                if (Platform.Parameters == null) { Platform.Initialize(); }
+                Platform.Awake();
                 return Platform.Parameters.HostEntranceConnection;
             }
         }

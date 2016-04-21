@@ -7,9 +7,8 @@ public class PlatformManager : MonoBehaviour {
     public bool randomizeSeed;
     public int seed;
     public GameObject player;
-    public float xDestructionDistance;
-    public float zDestructionDistance;
     public float creationDistance;
+    public float destructionDistance;
     public float speed;
     public float acceleration;
     public SpawnParameters[] platformTypes;
@@ -39,19 +38,14 @@ public class PlatformManager : MonoBehaviour {
         get { return manager.player; }
     }
 
-    public static float XDestructionDistance
-    {
-        get { return manager.xDestructionDistance; }
-    }
-
-    public static float ZDestructionDistance
-    {
-        get { return manager.zDestructionDistance; }
-    }
-
     public static float CreationDistance
     {
         get { return manager.creationDistance; }
+    }
+
+    public static float DestructionDistance
+    {
+        get { return manager.destructionDistance; }
     }
 
     public static void RotateWorld(float amount)
@@ -73,6 +67,7 @@ public class PlatformManager : MonoBehaviour {
         {
             string name = p.gameObject.name;
             var copyObj = (GameObject)GameObject.Instantiate(p.gameObject, p.transform.position, p.transform.rotation);
+            copyObj.transform.parent = this.transform;
             copyObj.name = name + "Blueprint";
             SpawnParameters.AddConnectionBuilder(copyObj.GetComponent<SpawnParameters>());
         }
@@ -84,6 +79,7 @@ public class PlatformManager : MonoBehaviour {
 
     public void Update()
     {
+        ChanceManager.RegisterTravel(speed * Time.deltaTime);
         timePassed += Time.deltaTime;
         if(timePassed > 1.0f)
         {
