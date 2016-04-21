@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class PlatformManager : MonoBehaviour {
 
@@ -63,16 +64,22 @@ public class PlatformManager : MonoBehaviour {
         if (manager == null) { manager = this; }
         else { throw new InvalidOperationException("You cannot have two platform managers."); }
 
+
+        var startType = platformTypes[UnityEngine.Random.Range(0, platformTypes.Length)].gameObject;
+        GameObject blueprint = null;
+        Dictionary<string, SpawnParameters> copies = new Dictionary<string, SpawnParameters>();
         foreach (var p in platformTypes)
         {
             string name = p.gameObject.name;
             var copyObj = (GameObject)GameObject.Instantiate(p.gameObject, p.transform.position, p.transform.rotation);
             copyObj.transform.parent = this.transform;
+            if(startType.name.Equals(name)) { blueprint = copyObj; }
             copyObj.name = name + "Blueprint";
-            SpawnParameters.AddConnectionBuilder(copyObj.GetComponent<SpawnParameters>());
+            copies.Add(name, copyObj.GetComponent<SpawnParameters>());
         }
+        SpawnParameters.AddConnectionBuilders(copies);
 
-        var startObj = (GameObject)GameObject.Instantiate(platformTypes[UnityEngine.Random.Range(0, platformTypes.Length)].gameObject, this.transform.position, this.transform.rotation);
+        var startObj = (GameObject)GameObject.Instantiate(blueprint, this.transform.position, this.transform.rotation);
         startObj.transform.parent = this.transform;
         startObj.SetActive(true);
     }

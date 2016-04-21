@@ -62,7 +62,6 @@ public class ConnectionBuilder : IBuilder<GameObject, GameObject>
         var hostWorldPoint = hostPosition + hostSpawn.Rotation * HostConnectionPoint;
         var obj = (GameObject)GameObject.Instantiate(Client, hostWorldPoint - ClientConnectionPoint, clientInitialRotation);
         var objSpawn = obj.GetComponent<SpawnParameters>();
-        objSpawn.InfoDebug = SpawnParameters.Print();
         obj.transform.parent = Host.transform.parent;
         obj.transform.RotateAround(hostWorldPoint, Vector3.up, hostSpawn.RotationY + ClientConnectionRotation);
         objSpawn.RotationY = hostSpawn.RotationY + ClientConnectionRotation;

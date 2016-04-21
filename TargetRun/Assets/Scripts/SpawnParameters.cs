@@ -9,23 +9,25 @@ public class SpawnParameters : MonoBehaviour
 {
     private static Dictionary<string, MultiConnectionBuilder> Connections = new Dictionary<string, MultiConnectionBuilder>();
 
-    public static void AddConnectionBuilder(SpawnParameters parameters)
+    public static void AddConnectionBuilders(Dictionary<string, SpawnParameters> parameters)
     {
-        Debug.Log("Trying to Add Connection Builder: " + parameters.Name);
-        //if(parameters.gameObject.activeSelf) { throw new ArgumentException("Active connection builder prefabs are not allowed."); }
-        var platforms = parameters.Platforms;
-        parameters.Platforms = null;
-        var builder = new MultiConnectionBuilder(parameters.gameObject);
-        foreach (var connection in platforms)
+        foreach (var pair in parameters)
         {
-            foreach (var p in connection.Platforms)
+            var param = pair.Value;
+            var platforms = param.Platforms;
+            param.Platforms = null;
+            var builder = new MultiConnectionBuilder(parameters[pair.Key].gameObject);
+            foreach (var connection in platforms)
             {
-                //if (p.Platform.gameObject.activeInHierarchy) { throw new ArgumentException("Active connection builder prefabs are not allowed."); }
-                builder.AddClient(connection.HostExitConnection, p.Platform.gameObject, p.ClientEntranceConnection, connection.ExitRotation, p.Chance);
+                foreach (var p in connection.Platforms)
+                {
+                    SpawnParameters dictVal = null;
+                    if(!parameters.TryGetValue(p.Platform.gameObject.name.Replace("Blueprint", ""), out dictVal)) { throw new KeyNotFoundException("Could not find key: " + p.Platform.gameObject.name); }
+                    builder.AddClient(connection.HostExitConnection, dictVal.gameObject, p.ClientEntranceConnection, connection.ExitRotation, p.Chance);
+                }
             }
+            Connections.Add(param.Name, builder);
         }
-        Connections.Add(parameters.Name, builder);
-        Debug.Log("Added ConnectionBuilder " + parameters.Name);
     }
 
     public static string Print()
@@ -68,7 +70,7 @@ public class SpawnParameters : MonoBehaviour
     {
         PlatformManager.DrawLocalAxis(this.transform.position, Rotation, 10.0f);
 
-        float size = 3.0f;
+        float size = 20.0f;
         Gizmos.color = Color.green;
         Vector3 startPos = this.transform.position + Rotation * HostEntranceConnection;
         Gizmos.DrawRay(startPos, Rotation * Vector3.forward * size);
@@ -76,7 +78,7 @@ public class SpawnParameters : MonoBehaviour
         Gizmos.DrawRay(startPos, Rotation * Vector3.right * size);
         Gizmos.color = Color.red;
 
-        if (Platforms == null)
+        if (Platforms == null || Platforms.Length <= 0)
         {
             Connections[Name].DrawGizoms(this.transform.position, Rotation, size);
         }
