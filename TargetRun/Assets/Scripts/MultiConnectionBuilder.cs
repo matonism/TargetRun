@@ -17,8 +17,9 @@ public class MultiConnectionBuilder : IBuilder<Dictionary<Vector3, GameObject>, 
         Host = p_host;
     }
 
-    public void AddClient(Vector3 hostPoint, ConnectionBuilder connection)
+    public void AddClient(Vector3 hostPoint, GameObject client, Vector3 clientConnectionPoint, float clientConnectionRotation, float chance)
     {
+        var connection = new ConnectionBuilder(hostPoint, client, clientConnectionPoint, clientConnectionRotation, chance);
         if (connection == null)
         {
             throw new ArgumentException("Invalid use of null connection argument for connection list.");
@@ -49,14 +50,14 @@ public class MultiConnectionBuilder : IBuilder<Dictionary<Vector3, GameObject>, 
         return objs;
     }
 
-    public void DrawGizoms(Vector3 basePosition, float size)
+    public void DrawGizoms(Vector3 basePosition, Quaternion rotation, float size)
     {
         foreach (var c in connections)
         {
-            Vector3 endPos = basePosition + c.Key;
-            Gizmos.DrawRay(endPos, Vector3.forward * size);
-            Gizmos.DrawRay(endPos, Vector3.up * size);
-            Gizmos.DrawRay(endPos, Vector3.right * size);
+            Vector3 endPos = basePosition + rotation * c.Key;
+            Gizmos.DrawRay(endPos, rotation * Vector3.forward * size);
+            Gizmos.DrawRay(endPos, rotation * Vector3.up * size);
+            Gizmos.DrawRay(endPos, rotation * Vector3.right * size);
         }
     }
 }

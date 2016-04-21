@@ -9,7 +9,6 @@ public class TurnTrigger : MonoBehaviour {
 
     public int Selector;
     public float[] AnglesOfRotation;
-    public GameObject Focus;
 
     public void Awake()
     {
@@ -25,8 +24,9 @@ public class TurnTrigger : MonoBehaviour {
         if (((1 << collider.gameObject.layer) & mask) != 0)
         {
             float angle = AnglesOfRotation[Selector] * Time.fixedDeltaTime * PlatformManager.SpeedVector.z * 0.5f;
-            if(angleTurned + angle > AnglesOfRotation[Selector]) { angle = AnglesOfRotation[Selector] - angleTurned; }
-            Focus.transform.Rotate(Vector3.up, angle);
+            if(AnglesOfRotation[Selector] > 0.0 && angleTurned + angle > AnglesOfRotation[Selector]) { angle = AnglesOfRotation[Selector] - angleTurned; }
+            else if (AnglesOfRotation[Selector] < 0.0 && angleTurned + angle < AnglesOfRotation[Selector]) { angle = AnglesOfRotation[Selector] - angleTurned; }
+            PlatformManager.RotateWorld(angle);
             angleTurned += angle;
         }
     }
@@ -35,7 +35,7 @@ public class TurnTrigger : MonoBehaviour {
     {
         if (((1 << collider.gameObject.layer) & mask) != 0)
         {
-            Focus.transform.Rotate(Vector3.up, AnglesOfRotation[Selector] - angleTurned);
+            PlatformManager.RotateWorld(AnglesOfRotation[Selector] - angleTurned);
         }
     }
 }

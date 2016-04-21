@@ -21,7 +21,7 @@ public class MobilePlatform : MonoBehaviour {
     {
         if(Parameters == null) { Initialize(); }
     }
-	
+
 	void Update ()
     {
         if (!destroyed)

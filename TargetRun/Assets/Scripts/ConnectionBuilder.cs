@@ -9,9 +9,16 @@ public class ConnectionBuilder : IBuilder<GameObject, GameObject>
         get; private set;
     }
 
+    private Vector3 clientConnectionPoint;
+    private Vector3 hostConnectionPoint;
+    public Quaternion clientInitialRotation;
+
     public Vector3 ClientConnectionPoint
     {
-        get; private set;
+        get
+        {
+            return clientConnectionPoint;
+        }
     }
 
     public float ClientConnectionRotation
@@ -21,7 +28,10 @@ public class ConnectionBuilder : IBuilder<GameObject, GameObject>
 
     public Vector3 HostConnectionPoint
     {
-        get; private set;
+        get
+        {
+            return hostConnectionPoint;
+        }
     }
 
     public float Chance
@@ -31,20 +41,25 @@ public class ConnectionBuilder : IBuilder<GameObject, GameObject>
 
     public ConnectionBuilder(Vector3 p_host_connection_point, GameObject p_client, Vector3 p_client_connection_point, float p_client_connection_rotation, float p_chance)
     {
-        HostConnectionPoint = p_host_connection_point;
+        hostConnectionPoint = p_host_connection_point;
         Client = p_client;
-        ClientConnectionPoint = p_client_connection_point;
+        clientInitialRotation = p_client.transform.rotation;
+        clientConnectionPoint = p_client_connection_point;
         ClientConnectionRotation = p_client_connection_rotation;
         Chance = p_chance;
     }
 
     public GameObject Build(GameObject Host)
     {
+        var hostSpawn = Host.GetComponent<SpawnParameters>();      
         Vector3 hostPosition = Host.transform.position;
-        var hostWorldPoint = hostPosition + HostConnectionPoint;
-        var obj = (GameObject)GameObject.Instantiate(Client, hostWorldPoint - ClientConnectionPoint, Client.transform.rotation);
+        var hostWorldPoint = hostPosition + hostSpawn.Rotation * HostConnectionPoint;
+        var obj = (GameObject)GameObject.Instantiate(Client, hostWorldPoint - ClientConnectionPoint, clientInitialRotation);
+        var objSpawn = obj.GetComponent<SpawnParameters>();
+        objSpawn.InfoDebug = SpawnParameters.Print();
         obj.transform.parent = Host.transform.parent;
-        obj.transform.RotateAround(Host.transform.position, Vector3.up, ClientConnectionRotation);
+        obj.transform.RotateAround(hostWorldPoint, Vector3.up, hostSpawn.RotationY + ClientConnectionRotation);
+        objSpawn.RotationY = hostSpawn.RotationY + ClientConnectionRotation;
         obj.SetActive(true);
         return obj;
     }
