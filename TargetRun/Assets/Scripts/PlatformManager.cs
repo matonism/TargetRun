@@ -10,7 +10,9 @@ public class PlatformManager : MonoBehaviour {
     public GameObject player;
     public float creationDistance;
     public float destructionDistance;
+    public float maxspeed;
     public float speed;
+    public float distanceTraveled;
     public float acceleration;
     public SpawnParameters[] platformTypes;
 
@@ -87,12 +89,13 @@ public class PlatformManager : MonoBehaviour {
 
     public void Update()
     {
+        distanceTraveled += speed * Time.deltaTime;
         ChanceManager.RegisterTravel(speed * Time.deltaTime);
         timePassed += Time.deltaTime;
         if(timePassed > 1.0f)
         {
             timePassed -= 1.0f;
-            speed += acceleration;
+            speed = Mathf.Min(speed + acceleration, maxspeed);
         }
     }
 

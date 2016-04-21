@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(SpawnParameters))]
 public class MobilePlatform : MonoBehaviour
 {
@@ -15,17 +14,11 @@ public class MobilePlatform : MonoBehaviour
         get; private set;
     }
 
-    public BoxCollider Collider
-    {
-        get; private set;
-    }
-
     public void Awake()
     {
         if (Parameters == null)
         {
             Parameters = GetComponent<SpawnParameters>();
-            Collider = GetComponent<BoxCollider>();
         }
         if (!initialized)
         {

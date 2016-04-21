@@ -18,6 +18,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &160300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 449298}
+  - 65: {fileID: 6551310}
+  - 114: {fileID: 11418482}
+  m_Layer: 0
+  m_Name: TurnTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &170876
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,8 +45,6 @@ GameObject:
   - 4: {fileID: 406252}
   - 114: {fileID: 11413756}
   - 114: {fileID: 11408916}
-  - 65: {fileID: 6563016}
-  - 114: {fileID: 11447760}
   m_Layer: 0
   m_Name: BothTurn
   m_TagString: Untagged
@@ -48,8 +63,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 469450}
+  - {fileID: 449298}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &449298
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160300}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 406252}
+  m_RootOrder: 1
 --- !u!4 &469450
 Transform:
   m_ObjectHideFlags: 1
@@ -107,18 +135,18 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 0b8405000675bcc4fb5e9670fc0bf25d, type: 3}
---- !u!65 &6563016
+--- !u!65 &6551310
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170876}
+  m_GameObject: {fileID: 160300}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.8, y: 3, z: 3}
-  m_Center: {x: 0, y: 1.5, z: 1.33}
+  m_Size: {x: 6, y: 3, z: 0.25}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &11408916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,12 +184,12 @@ MonoBehaviour:
     - Chance: 1
       Platform: {fileID: 11497222, guid: 12de935ab72638e4d82158b29201e8ed, type: 2}
   InfoDebug: 
---- !u!114 &11447760
+--- !u!114 &11418482
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170876}
+  m_GameObject: {fileID: 160300}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 637f145806ea21c4c893d0a62d44c079, type: 3}
@@ -207,6 +235,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Size.z
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

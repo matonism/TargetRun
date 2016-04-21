@@ -487,8 +487,10 @@ MonoBehaviour:
   player: {fileID: 289149629}
   creationDistance: 50
   destructionDistance: -50
-  speed: 10
-  acceleration: 0.1
+  maxspeed: 30
+  speed: 4
+  distanceTraveled: 0
+  acceleration: 2
   platformTypes:
   - {fileID: 11413756, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
   - {fileID: 11422750, guid: 12de935ab72638e4d82158b29201e8ed, type: 2}
@@ -526,6 +528,48 @@ MonoBehaviour:
     distance: 0
   - name: ThinMediumBridge
     distance: 0
+--- !u!1001 &1688982770
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 406252, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406252, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406252, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406252, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406252, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406252, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406252, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 406252, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f2e4a7792b9b4a74e99a012c368290ce, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1764856499
 GameObject:
   m_ObjectHideFlags: 0
