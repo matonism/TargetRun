@@ -21,6 +21,11 @@ public class PlatformManager : MonoBehaviour {
 
     private static PlatformManager manager;
 
+    public static void SetAsParent(Transform transform)
+    {
+        transform.parent = manager.transform;
+    }
+
     public static Vector3 SpeedVector
     {
         get { return new Vector3(0.0f, 0.0f, manager.speed); }

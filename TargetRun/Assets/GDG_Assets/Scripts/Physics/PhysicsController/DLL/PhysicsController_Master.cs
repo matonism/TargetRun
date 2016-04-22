@@ -53,7 +53,7 @@ public class PhysicsController_Master : GDG_Physics
 			
 			SetChildVariables (pChild, i);
 			i++;
-			Destroy (child, 0.5f);
+			Destroy (pChild.gameObject, 0.25f);
 		}
 		BreakAndDestroy();
 	}
