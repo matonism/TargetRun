@@ -227,7 +227,10 @@ public class Gun : Weapon {
 				foreach (MeshCollider meshc in underO){
 					meshc.enabled = false;
 				}
-				breakTarget.breakObject(true, new Vector3(0,0,0));
+
+                hit.collider.gameObject.transform.parent.gameObject.GetComponent<BoxCollider>().enabled = false;
+                Debug.Log("Found Collider.");
+                breakTarget.breakObject(true, new Vector3(0,0,0));
 				Destroy (hit.collider.gameObject, 2);
 			}
 		} 

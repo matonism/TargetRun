@@ -10,7 +10,8 @@ GameObject:
   - 4: {fileID: 444152}
   - 23: {fileID: 2305652}
   - 33: {fileID: 3364464}
-  - 64: {fileID: 6436730}
+  - 65: {fileID: 6579226}
+  - 114: {fileID: 11419918}
   m_Layer: 0
   m_Name: HurdleRoll
   m_TagString: Untagged
@@ -63,25 +64,40 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193572}
   m_Mesh: {fileID: 4300000, guid: ac3f35dfd68bd5f4a940da4eb3ffd43b, type: 3}
---- !u!64 &6436730
-MeshCollider:
+--- !u!65 &6579226
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193572}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: ac3f35dfd68bd5f4a940da4eb3ffd43b, type: 3}
+  m_Size: {x: 1.2700584, y: 1, z: 0.2358189}
+  m_Center: {x: -0.000000029802322, y: 1.1, z: -0.0000000037252903}
+--- !u!114 &11419918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e51bbab60074154dbfc2afcd8fb7b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 193572}

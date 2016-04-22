@@ -3,7 +3,6 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-
 	private Vector3 startingPosition;
 	private float movementSpeed;
 	private Animator ani;
@@ -45,8 +44,8 @@ public class PlayerController : MonoBehaviour
 		setFallTime ();
 		jumpDuration = 1 / jumpSpeed;
 		myCamera = GetComponentInChildren<Camera> ();
-		crouchPosition = new Vector3 (myCamera.transform.position.x, myCamera.transform.position.y - 2.0f, myCamera.transform.position.z + 0.5f);
-		standPosition = new Vector3 (myCamera.transform.position.x, myCamera.transform.position.y, myCamera.transform.position.z);
+		crouchPosition = new Vector3 (myCamera.transform.localPosition.x, myCamera.transform.localPosition.y - 1.0f, myCamera.transform.localPosition.z + 0.5f);
+		standPosition = new Vector3 (myCamera.transform.localPosition.x, myCamera.transform.localPosition.y, myCamera.transform.localPosition.z);
 		bc = transform.GetComponent<BoxCollider> ();
 		originalBoxCenter = bc.center;
 		originalBoxSize = bc.size;
@@ -55,6 +54,16 @@ public class PlayerController : MonoBehaviour
 
 	void Update(){
 		
+        if(GameOverControl.IsGameOver)
+        {
+            var body = GetComponent<Rigidbody>();
+            if (body != null)
+            {
+                GameObject.Destroy(body);
+            }
+            return;
+        }
+
 		//check for jump or roll
 		float jumpOrRoll = Input.GetAxisRaw("Jump");
 		if (rolling == false && jumping == false) {
@@ -66,8 +75,8 @@ public class PlayerController : MonoBehaviour
 				jumping = true;
 
 			} else if (jumpOrRoll < 0) {
-				currentStandPosition = new Vector3 (myCamera.transform.position.x, myCamera.transform.position.y, myCamera.transform.position.z);
-//				myCamera.transform.position = new Vector3(myCamera.transform.position.x, crouchPosition.y, crouchPosition.z);
+				currentStandPosition = new Vector3 (myCamera.transform.localPosition.x, myCamera.transform.localPosition.y, myCamera.transform.localPosition.z);
+//				myCamera.transform.localPosition = new Vector3(myCamera.transform.localPosition.x, crouchPosition.y, crouchPosition.z);
 				jumpTime = jumpDuration * 2.0f;
 				ani.SetTrigger ("roll");
 				rolling = true;
@@ -87,18 +96,18 @@ public class PlayerController : MonoBehaviour
 				bc.size = new Vector3 (originalBoxSize.x, originalBoxSize.y / 2, originalBoxSize.z);
 				bc.center = new Vector3 (originalBoxCenter.x, originalBoxCenter.y - 0.5f, originalBoxCenter.z);
 
-				Vector3 newPosition = new Vector3(myCamera.transform.position.x, crouchPosition.y, crouchPosition.z);
-				myCamera.transform.position = Vector3.Lerp (currentStandPosition, newPosition, 2 * (1.5f - jumpTime));
+				Vector3 newPosition = new Vector3(myCamera.transform.localPosition.x, crouchPosition.y, crouchPosition.z);
+				myCamera.transform.localPosition = Vector3.Lerp (currentStandPosition, newPosition, 2 * (1.5f - jumpTime));
 				getUpStart = true;
 			} else if (rolling && jumpTime < 0.5f) {
 				if (getUpStart) {
-					currentCrouchPosition = new Vector3 (myCamera.transform.position.x, myCamera.transform.position.y, myCamera.transform.position.z);
+					currentCrouchPosition = new Vector3 (myCamera.transform.localPosition.x, myCamera.transform.localPosition.y, myCamera.transform.localPosition.z);
 					getUpStart = false;
 				}
 				bc.size = new Vector3 (originalBoxSize.x, originalBoxSize.y, originalBoxSize.z);
 				bc.center = new Vector3 (originalBoxCenter.x, originalBoxCenter.y, originalBoxCenter.z);
-				Vector3 newPosition = new Vector3(myCamera.transform.position.x, standPosition.y-1f, standPosition.z);
-				myCamera.transform.position = Vector3.Lerp (currentCrouchPosition, newPosition, 2 * (0.5f-jumpTime));
+				Vector3 newPosition = new Vector3(myCamera.transform.localPosition.x, standPosition.y, standPosition.z);
+				myCamera.transform.localPosition = Vector3.Lerp (currentCrouchPosition, newPosition, 2 * (0.5f-jumpTime));
 
 			}
 
@@ -106,7 +115,7 @@ public class PlayerController : MonoBehaviour
 				ani.SetTrigger ("run");
 				rolling = false;
 				jumping = false;
-//				myCamera.transform.position = new Vector3(myCamera.transform.position.x, standPosition.y, standPosition.z);
+//				myCamera.transform.localPosition = new Vector3(myCamera.transform.localPosition.x, standPosition.y, standPosition.z);
 			}
 
 		}
