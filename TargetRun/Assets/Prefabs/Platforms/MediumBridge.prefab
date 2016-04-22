@@ -28,7 +28,6 @@ GameObject:
   - 4: {fileID: 468538}
   - 114: {fileID: 11415238}
   - 114: {fileID: 11431212}
-  - 65: {fileID: 6562184}
   m_Layer: 0
   m_Name: MediumBridge
   m_TagString: Untagged
@@ -182,18 +181,6 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300002, guid: 3a0e6d70e96768a43a00963d64e729cb, type: 3}
---- !u!65 &6562184
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 160278}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4, y: 10, z: 8}
-  m_Center: {x: 0, y: 0, z: -3.75}
 --- !u!114 &11415238
 MonoBehaviour:
   m_ObjectHideFlags: 1

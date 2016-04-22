@@ -435,8 +435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2027a78494835e14892972e03e4bacb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomizeSeed: 1
-  seed: 212
+  randomizeSeed: 0
+  seed: 836
   player: {fileID: 1461013503}
   creationDistance: 50
   destructionDistance: -50
@@ -562,6 +562,10 @@ Prefab:
     - target: {fileID: 495400, guid: f5d27db186b7047529062ae68a2bc42c, type: 2}
       propertyPath: m_LocalRotation.w
       value: 0.016259177
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496604, guid: f5d27db186b7047529062ae68a2bc42c, type: 2}
+      propertyPath: m_Mass
+      value: 1.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5d27db186b7047529062ae68a2bc42c, type: 2}

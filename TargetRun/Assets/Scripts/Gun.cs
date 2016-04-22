@@ -228,6 +228,8 @@ public class Gun : Weapon {
 					meshc.enabled = false;
 				}
 
+                var controller = hit.collider.gameObject.transform.parent.gameObject.GetComponent<TurnController>();
+                if (controller != null) { controller.Set(); }
                 hit.collider.gameObject.transform.parent.gameObject.GetComponent<BoxCollider>().enabled = false;
                 Debug.Log("Found Collider.");
                 breakTarget.breakObject(true, new Vector3(0,0,0));
